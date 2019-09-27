@@ -19,8 +19,8 @@ matterbridge Server
          
          After install :
  
-        1. need to edit file
-        2. put your sql user and password
+        1. need to edit file /opt/matterbridge/matterbridge.toml
+        2. restart service systemctl restart matterbridge
 
  
 ### Upgrade this package:
