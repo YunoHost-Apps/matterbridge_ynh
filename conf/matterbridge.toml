@@ -1,0 +1,1659 @@
+#This is configuration for matterbridge.
+#WARNING: as this file contains credentials, be sure to set correct file permissions
+#See https://github.com/42wim/matterbridge/wiki/How-to-create-your-config for how to create your config
+#See https://github.com/42wim/matterbridge/wiki/Settings for all settings
+###################################################################
+#IRC section
+###################################################################
+#REQUIRED to start IRC section
+[irc]
+
+#You can configure multiple servers "[irc.name]" or "[irc.name2]"
+#In this example we use [irc.freenode]
+#REQUIRED
+[irc.freenode]
+#irc server to connect to. 
+#REQUIRED
+Server="irc.freenode.net:6667"
+
+#Password for irc server (if necessary)
+#OPTIONAL (default "")
+Password=""
+
+#Enable to use TLS connection to your irc server. 
+#OPTIONAL (default false)
+UseTLS=false
+
+#Enable SASL (PLAIN) authentication. (freenode requires this from eg AWS hosts)
+#It uses NickServNick and NickServPassword as login and password
+#OPTIONAL (default false)
+UseSASL=false
+
+#Enable to not verify the certificate on your irc server.
+#e.g. when using selfsigned certificates
+#OPTIONAL (default false)
+SkipTLSVerify=true
+
+#If you know your charset, you can specify it manually. 
+#Otherwise it tries to detect this automatically. Select one below
+# "iso-8859-2:1987", "iso-8859-9:1989", "866", "latin9", "iso-8859-10:1992", "iso-ir-109", "hebrew", 
+# "cp932", "iso-8859-15", "cp437", "utf-16be", "iso-8859-3:1988", "windows-1251", "utf16", "latin6", 
+# "latin3", "iso-8859-1:1987", "iso-8859-9", "utf-16le", "big5", "cp819", "asmo-708", "utf-8", 
+# "ibm437", "iso-ir-157", "iso-ir-144", "latin4", "850", "iso-8859-5", "iso-8859-5:1988", "l3", 
+# "windows-31j", "utf8", "iso-8859-3", "437", "greek", "iso-8859-8", "l6", "l9-iso-8859-15", 
+# "iso-8859-2", "latin2", "iso-ir-100", "iso-8859-6", "arabic", "iso-ir-148", "us-ascii", "x-sjis", 
+# "utf16be", "iso-8859-8:1988", "utf16le", "l4", "utf-16", "iso-ir-138", "iso-8859-7", "iso-8859-7:1987", 
+# "windows-1252", "l2", "koi8-r", "iso8859-1", "latin1", "ecma-114", "iso-ir-110", "elot-928", 
+# "iso-ir-126", "iso-8859-1", "iso-ir-127", "cp850", "cyrillic", "greek8", "windows-1250", "iso-latin-1", 
+# "l5", "ibm866", "cp866", "ms-kanji", "ibm850", "ecma-118", "iso-ir-101", "ibm819", "l1", "iso-8859-6:1987", 
+# "latin5", "ascii", "sjis", "iso-8859-10", "iso-8859-4", "iso-8859-4:1988", "shift-jis
+# The select charset will be converted to utf-8 when sent to other bridges.
+#OPTIONAL (default "")
+Charset=""
+
+#Your nick on irc. 
+#REQUIRED
+Nick="matterbot"
+
+#If you registered your bot with a service like Nickserv on freenode. 
+#Also being used when UseSASL=true
+#
+#Note: if you want do to quakenet auth, set NickServNick="Q@CServe.quakenet.org"
+#OPTIONAL
+NickServNick="nickserv"
+NickServPassword="secret"
+
+#OPTIONAL only used for quakenet auth
+NickServUsername="username"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Flood control
+#Delay in milliseconds between each message send to the IRC server
+#OPTIONAL (default 1300)
+MessageDelay=1300
+
+#Maximum amount of messages to hold in queue. If queue is full 
+#messages will be dropped. 
+#<message clipped> will be add to the message that fills the queue.
+#OPTIONAL (default 30)
+MessageQueue=30
+
+#Maximum length of message sent to irc server. If it exceeds
+#<message clipped> will be add to the message.
+#OPTIONAL (default 400)
+MessageLength=400
+
+#Split messages on MessageLength instead of showing the <message clipped>
+#WARNING: this could lead to flooding
+#OPTIONAL (default false)
+MessageSplit=false
+
+#Delay in seconds to rejoin a channel when kicked
+#OPTIONAL (default 0)
+RejoinDelay=0
+
+#ColorNicks will show each nickname in a different color.
+#Only works in IRC right now.
+ColorNicks=false
+
+#RunCommands allows you to send RAW irc commands after connection
+#Array of strings
+#OPTIONAL (default empty)
+RunCommands=["PRIVMSG user hello","PRIVMSG chanserv something"]
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+#The string "{NOPINGNICK}" (case sensitive) will be replaced by the actual nick / username, but with a ZWSP inside the nick, so the irc user with the same nick won't get pinged. See https://github.com/42wim/matterbridge/issues/175 for more information
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#Enable to show verbose users joins/parts (ident@host) from other bridges
+#Currently works for messages from the following bridges: irc
+#OPTIONAL (default false)
+VerboseJoinPart=false
+
+#Do not send joins/parts to other bridges
+#Currently works for messages from the following bridges: irc, mattermost, slack
+#OPTIONAL (default false)
+NoSendJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#XMPP section
+###################################################################
+[xmpp]
+
+#You can configure multiple servers "[xmpp.name]" or "[xmpp.name2]"
+#In this example we use [xmpp.jabber]
+#REQUIRED
+[xmpp.jabber]
+#xmpp server to connect to. 
+#REQUIRED
+Server="jabber.example.com:5222"
+
+#Jid
+#REQUIRED
+Jid="user@example.com"
+
+#Password
+#REQUIRED
+Password="yourpass"
+
+#MUC
+#REQUIRED
+Muc="conference.jabber.example.com"
+
+#Your nick in the rooms
+#REQUIRED
+Nick="xmppbot"
+
+#Enable to not verify the certificate on your xmpp server.
+#e.g. when using selfsigned certificates
+#OPTIONAL (default false)
+SkipTLSVerify=true
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#Messages you want to replace.
+#It replaces outgoing messages from the bridge.
+#So you need to place it by the sending bridge definition.
+#Regular expressions supported
+#Some examples:
+#This replaces cat => dog and sleep => awake
+#ReplaceMessages=[ ["cat","dog"], ["sleep","awake"] ]
+#This Replaces every number with number.  123 => numbernumbernumber
+#ReplaceMessages=[ ["[0-9]","number"] ]
+#OPTIONAL (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#Nicks you want to replace.
+#See ReplaceMessages for syntaxA
+#OPTIONAL (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#mattermost section
+###################################################################
+[mattermost]
+#You can configure multiple servers "[mattermost.name]" or "[mattermost.name2]"
+#In this example we use [mattermost.work]
+#REQUIRED
+
+[mattermost.work]
+#The mattermost hostname. (do not prefix it with http or https)
+#REQUIRED (when not using webhooks)
+Server="yourmattermostserver.domain" 
+
+#Your team on mattermost. 
+#REQUIRED (when not using webhooks)
+Team="yourteam"
+
+#login/pass of your bot. 
+#Use a dedicated user for this and not your own! 
+#REQUIRED (when not using webhooks)
+Login="yourlogin"
+Password="yourpass"
+
+#personal access token of the bot.
+#new feature since mattermost 4.1. See https://docs.mattermost.com/developer/personal-access-tokens.html
+#OPTIONAL (you can use token instead of login/password)
+#Token="abcdefghijklm"
+
+#Enable this to make a http connection (instead of https) to your mattermost. 
+#OPTIONAL (default false)
+NoTLS=false
+
+#### Settings for webhook matterbridge.
+#NOT RECOMMENDED TO USE INCOMING/OUTGOING WEBHOOK. USE DEDICATED BOT USER WHEN POSSIBLE!
+#You don't need to configure this, if you have configured the settings 
+#above.
+
+#Url is your incoming webhook url as specified in mattermost. 
+#See account settings - integrations - incoming webhooks on mattermost.
+#If specified, messages will be sent to mattermost using this URL
+#OPTIONAL
+WebhookURL="https://yourdomain/hooks/yourhookkey"
+
+#Address to listen on for outgoing webhook requests from mattermost.
+#See account settings - integrations - outgoing webhooks on mattermost.
+#If specified, messages will be received from mattermost on this ip:port
+#(this will only work if WebhookURL above is also configured)
+#OPTIONAL 
+WebhookBindAddress="0.0.0.0:9999"
+
+#Icon that will be showed in mattermost. 
+#This only works when WebhookURL is configured
+#OPTIONAL
+IconURL="http://youricon.png"
+
+#### End settings for webhook matterbridge.
+
+#Enable to not verify the certificate on your mattermost server. 
+#e.g. when using selfsigned certificates
+#OPTIONAL (default false)
+SkipTLSVerify=true
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#how to format the list of IRC nicks when displayed in mattermost. 
+#Possible options are "table" and "plain"
+#OPTIONAL (default plain)
+NickFormatter="plain"
+#How many nicks to list per row for formatters that support this. 
+#OPTIONAL (default 4)
+NicksPerRow=4
+
+#Skip the Mattermost server version checks that are normally done when connecting.
+#The usage scenario for this feature would be when the Mattermost instance is hosted behind a
+#reverse proxy that suppresses "non-standard" response headers in flight.
+#OPTIONAL (default false)
+SkipVersionCheck=false
+
+#Whether to prefix messages from other bridges to mattermost with the sender's nick. 
+#Useful if username overrides for incoming webhooks isn't enabled on the 
+#mattermost server. If you set PrefixMessagesWithNick to true, each message 
+#from bridge to Mattermost will by default be prefixed by "bridge-" + nick. You can, 
+#however, modify how the messages appear, by setting (and modifying) RemoteNickFormat 
+#OPTIONAL (default false)
+PrefixMessagesWithNick=false
+
+#Disable sending of edits to other bridges
+#OPTIONAL (default false)
+EditDisable=false
+
+#Message to be appended to every edited message
+#OPTIONAL (default empty)
+EditSuffix=" (edited)"
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#Do not send joins/parts to other bridges
+#Currently works for messages from the following bridges: irc, mattermost, slack
+#OPTIONAL (default false)
+NoSendJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#Gitter section
+#Best to make a dedicated gitter account for the bot.
+###################################################################
+
+[gitter]
+
+#You can configure multiple servers "[gitter.name]" or "[gitter.name2]"
+#In this example we use [gitter.myproject]
+#REQUIRED
+[gitter.myproject]
+#Token to connect with Gitter API
+#You can get your token by going to https://developer.gitter.im/docs/welcome and SIGN IN
+#REQUIRED
+Token="Yourtokenhere"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#
+# Keybase
+# You should have a separate bridge account on Keybase
+# (it also needs to be logged in on the system you're running the bridge on)
+#
+###################################################################
+
+[keybase.myteam]
+
+# RemoteNickFormat defines how remote users appear on this bridge 
+# See [general] config section for default options
+RemoteNickFormat="{NICK} ({PROTOCOL}): "
+
+# extra label that can be used in the RemoteNickFormat
+# optional (default empty)
+Label=""
+
+# Your team on Keybase.
+# The bot user MUST be a member of this team
+# REQUIRED
+Team="myteam"
+
+###################################################################
+#slack section
+###################################################################
+[slack]
+
+#You can configure multiple servers "[slack.name]" or "[slack.name2]"
+#In this example we use [slack.hobby]
+#REQUIRED
+[slack.hobby]
+#Token to connect with the Slack API
+#You'll have to use a test/api-token using a dedicated user and not a bot token.
+#See https://github.com/42wim/matterbridge/issues/75 for more info.
+#Use https://api.slack.com/custom-integrations/legacy-tokens
+#REQUIRED (when not using webhooks)
+Token="yourslacktoken"
+
+#Extra slack specific debug info, warning this generates a lot of output.
+#OPTIONAL (default false)
+Debug="false"
+
+#### Settings for webhook matterbridge.
+#NOT RECOMMENDED TO USE INCOMING/OUTGOING WEBHOOK. USE SLACK API
+#AND DEDICATED BOT USER WHEN POSSIBLE!
+#Url is your incoming webhook url as specified in slack
+#See account settings - integrations - incoming webhooks on slack
+#OPTIONAL
+WebhookURL="https://hooks.slack.com/services/yourhook"
+
+#NOT RECOMMENDED TO USE INCOMING/OUTGOING WEBHOOK. USE SLACK API
+#AND DEDICATED BOT USER WHEN POSSIBLE!
+#Address to listen on for outgoing webhook requests from slack
+#See account settings - integrations - outgoing webhooks on slack
+#webhooks
+#OPTIONAL
+WebhookBindAddress="0.0.0.0:9999"
+
+#Icon that will be showed in slack
+#The string "{NICK}" (case sensitive) will be replaced by the actual nick / username.
+#The string "{BRIDGE}" (case sensitive) will be replaced by the sending bridge
+#The string "{LABEL}" (case sensitive) will be replaced by label= field of the sending bridge
+#The string "{PROTOCOL}" (case sensitive) will be replaced by the protocol used by the bridge
+#OPTIONAL
+IconURL="https://robohash.org/{NICK}.png?size=48x48"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#how to format the list of IRC nicks when displayed in slack
+#Possible options are "table" and "plain"
+#OPTIONAL (default plain)
+NickFormatter="plain"
+#How many nicks to list per row for formatters that support this. 
+#OPTIONAL (default 4)
+NicksPerRow=4
+
+#Disable sending of edits to other bridges
+#OPTIONAL (default false)
+EditDisable=true
+
+#Message to be appended to every edited message
+#OPTIONAL (default empty)
+EditSuffix=" (edited)"
+
+#Whether to prefix messages from other bridges to mattermost with RemoteNickFormat
+#Useful if username overrides for incoming webhooks isn't enabled on the 
+#slack server. If you set PrefixMessagesWithNick to true, each message 
+#from bridge to Slack will by default be prefixed by "bridge-" + nick. You can, 
+#however, modify how the messages appear, by setting (and modifying) RemoteNickFormat 
+#OPTIONAL (default false)
+PrefixMessagesWithNick=false
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#Do not send joins/parts to other bridges
+#Currently works for messages from the following bridges: irc, mattermost, slack
+#OPTIONAL (default false)
+NoSendJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+#Opportunistically preserve threaded replies between Slack channels.
+#This only works if the parent message is still in the cache.
+#Cache is flushed between restarts.
+#Note: Not currently working on gateways with mixed bridges of
+# both slack and slack-legacy type. Context in issue #624.
+#OPTIONAL (default false)
+PreserveThreading=false
+
+#Enable showing "user_typing" events from across gateway when available.
+#Protip: Set your bot/user's "Full Name" to be "Someone (over chat bridge)",
+#and so the message will say "Someone (over chat bridge) is typing".
+#OPTIONAL (default false)
+ShowUserTyping=false
+
+###################################################################
+#discord section
+###################################################################
+[discord]
+
+#You can configure multiple servers "[discord.name]" or "[discord.name2]"
+#In this example we use [discord.game]
+#REQUIRED
+[discord.game]
+#Token to connect with Discord API
+#You can get your token by following the instructions on 
+#https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
+#If you want roles/groups mentions to be shown with names instead of ID, you'll need to give your bot the "Manage Roles" permission.
+#REQUIRED
+Token="Yourtokenhere"
+
+#REQUIRED
+Server="yourservername"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Shows title, description and URL of embedded messages (sent by other bots)
+#OPTIONAL (default false)
+ShowEmbeds=false
+
+#Shows the username instead of the server nickname
+#OPTIONAL (default false)
+UseUserName=false
+
+#Show #xxxx discriminator with UseUserName
+#OPTIONAL (default false)
+UseDiscriminator=false
+
+#Specify WebhookURL. If given, will relay messages using the Webhook, which gives a better look to messages.
+#This only works if you have one discord channel, if you have multiple discord channels you'll have to specify it in the gateway config
+#OPTIONAL (default empty)
+WebhookURL="Yourwebhooktokenhere"
+
+#Disable sending of edits to other bridges
+#OPTIONAL (default false)
+EditDisable=false
+
+#Message to be appended to every edited message
+#OPTIONAL (default empty)
+EditSuffix=" (edited)"
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic/purpose changes from other bridges
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+#Enable to sync topic/purpose changes from other bridges
+#Only works syncing topic changes from slack bridge for now
+#OPTIONAL (default false)
+SyncTopic=false
+
+###################################################################
+#telegram section
+###################################################################
+[telegram]
+
+#You can configure multiple servers "[telegram.name]" or "[telegram.name2]"
+#In this example we use [telegram.secure]
+#REQUIRED
+[telegram.secure]
+#Token to connect with telegram API
+#See https://core.telegram.org/bots#6-botfather and https://www.linkedin.com/pulse/telegram-bots-beginners-marco-frau
+#REQUIRED
+Token="Yourtokenhere"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#OPTIONAL (default empty)
+#Supported formats are "HTML", "Markdown" and "HTMLNick"
+#See https://core.telegram.org/bots/api#html-style
+#See https://core.telegram.org/bots/api#markdown-style
+#HTMLNick only allows HTML for the nick, the message itself will be html-escaped
+MessageFormat=""
+
+#If enabled use the "First Name" as username. If this is empty use the Username
+#If disabled use the "Username" as username. If this is empty use the First Name 
+#If all names are empty, username will be "unknown"
+#OPTIONAL (default false)
+UseFirstName=false
+
+#WARNING! If enabled this will relay GIF/stickers/documents and other attachments as URLs
+#Those URLs will contain your bot-token. This may not be what you want.
+#For now there is no secure way to relay GIF/stickers/documents without seeing your token.
+#OPTIONAL (default false)
+UseInsecureURL=false
+
+#Disable quoted/reply messages
+#OPTIONAL (default false)
+QuoteDisable=false
+
+#Format quoted/reply messages
+#OPTIONAL (default "{MESSAGE} (re @{QUOTENICK}: {QUOTEMESSAGE})")
+QuoteFormat="{MESSAGE} (re @{QUOTENICK}: {QUOTEMESSAGE})"
+
+#Convert WebP images to PNG before upload.
+#https://github.com/42wim/matterbridge/issues/398
+#OPTIONAL (default false)
+MediaConvertWebPToPNG=false
+
+#Disable sending of edits to other bridges
+#OPTIONAL (default false)
+EditDisable=false
+
+#Message to be appended to every edited message
+#OPTIONAL (default empty)
+EditSuffix=" (edited)"
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="spammer1 spammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+#
+#WARNING: if you have set MessageFormat="HTML" be sure that this format matches the guidelines
+#on https://core.telegram.org/bots/api#html-style otherwise the message will not go through to
+#telegram! eg <{NICK}> should be &lt;{NICK}&gt;
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#rocketchat section
+###################################################################
+[rocketchat]
+#You can configure multiple servers "[rocketchat.name]" or "[rocketchat.name2]"
+#In this example we use [rocketchat.work]
+#REQUIRED
+
+[rocketchat.rockme]
+#The rocketchat hostname. (prefix it with http or https)
+#REQUIRED (when not using webhooks)
+Server="https://yourrocketchatserver.domain.com:443"
+
+#login/pass of your bot. 
+#login needs to be the login with email address! user@domain.com
+#Use a dedicated user for this and not your own! 
+#REQUIRED (when not using webhooks)
+Login="yourlogin@domain.com"
+Password="yourpass"
+# When using access token set Login to the User ID associated with your token and Token to your token.
+# When Token is set Password is ignored.
+# Login="yOurUSerID"
+# Token="YoUrUsER_toKEN"
+
+
+#### Settings for webhook matterbridge.
+#USE DEDICATED BOT USER WHEN POSSIBLE! This allows you to use advanced features like message editing/deleting and uploads
+#You don't need to configure this, if you have configured the settings 
+#above.
+
+#Url is your incoming webhook url as specified in rocketchat
+#Read #https://rocket.chat/docs/administrator-guides/integrations/#how-to-create-a-new-incoming-webhook
+#See administration - integrations - new integration - incoming webhook
+#REQUIRED
+WebhookURL="https://yourdomain/hooks/yourhookkey"
+
+#Address to listen on for outgoing webhook requests from rocketchat.
+#See administration - integrations - new integration - outgoing webhook
+#REQUIRED 
+WebhookBindAddress="0.0.0.0:9999"
+
+#Your nick/username as specified in your incoming webhook "Post as" setting
+#REQUIRED
+Nick="matterbot"
+
+#Enable this to make a http connection (instead of https) to your rocketchat
+#OPTIONAL (default false)
+NoTLS=false
+
+#Enable to not verify the certificate on your rocketchat server. 
+#e.g. when using selfsigned certificates
+#OPTIONAL (default false)
+SkipTLSVerify=true
+
+#### End settings for webhook matterbridge.
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Whether to prefix messages from other bridges to rocketchat with the sender's nick. 
+#Useful if username overrides for incoming webhooks isn't enabled on the 
+#rocketchat server. If you set PrefixMessagesWithNick to true, each message 
+#from bridge to rocketchat will by default be prefixed by the RemoteNickFormat setting. i
+#if you're using login/pass you can better enable because of this bug:
+#https://github.com/RocketChat/Rocket.Chat/issues/7549
+#OPTIONAL (default false)
+PrefixMessagesWithNick=false
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="ircspammer1 ircspammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#matrix section
+###################################################################
+[matrix]
+#You can configure multiple servers "[matrix.name]" or "[matrix.name2]"
+#In this example we use [matrix.neo]
+#REQUIRED
+
+[matrix.neo]
+#Server is your homeserver (eg https://matrix.org)
+#REQUIRED
+Server="https://matrix.org"
+
+#login/pass of your bot. 
+#Use a dedicated user for this and not your own! 
+#Messages sent from this user will not be relayed to avoid loops.
+#REQUIRED 
+Login="yourlogin"
+Password="yourpass"
+
+#Whether to send the homeserver suffix. eg ":matrix.org" in @username:matrix.org
+#to other bridges, or only send "username".(true only sends username)
+#OPTIONAL (default false)
+NoHomeServerSuffix=false
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Whether to prefix messages from other bridges to matrix with the sender's nick. 
+#Useful if username overrides for incoming webhooks isn't enabled on the 
+#matrix server. If you set PrefixMessagesWithNick to true, each message 
+#from bridge to matrix will by default be prefixed by the RemoteNickFormat setting. i
+#OPTIONAL (default false)
+PrefixMessagesWithNick=false
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="spammer1 spammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#steam section
+###################################################################
+[steam]
+#You can configure multiple servers "[steam.name]" or "[steam.name2]"
+#In this example we use [steam.gamechat]
+#REQUIRED
+
+[steam.gamechat]
+#login/pass of your bot. 
+#Use a dedicated user for this and not your own account! 
+#REQUIRED 
+Login="yourlogin"
+Password="yourpass"
+
+#steamguard mail authcode (not the 2FA code)
+#OPTIONAL 
+Authcode="ABCE12"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Whether to prefix messages from other bridges to matrix with the sender's nick. 
+#Useful if username overrides for incoming webhooks isn't enabled on the 
+#matrix server. If you set PrefixMessagesWithNick to true, each message 
+#from bridge to matrix will by default be prefixed by the RemoteNickFormat setting. i
+#OPTIONAL (default false)
+PrefixMessagesWithNick=false
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="spammer1 spammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+
+
+###################################################################
+#
+# WhatsApp
+#
+###################################################################
+
+[whatsapp.bridge]
+
+# Number you will use as a relay bot. Tip: Get some disposable sim card, don't rely on your own number.
+Number="+48111222333"
+
+# First time that you login you will need to scan QR code, then credentials willl be saved in a session file
+# If you won't set SessionFile then you will need to scan QR code on every restart
+# optional (by default the session is stored only in memory, till restarting matterbridge)
+SessionFile="session-48111222333.gob"
+
+# If your terminal is white we need to invert QR code in order for it to be scanned properly
+# optional (default false)
+QrOnWhiteTerminal=true
+
+# Messages will be seen by other WhatsApp contacts as coming from the bridge. Original nick will be part of the message.
+RemoteNickFormat="@{NICK}: "
+
+# extra label that can be used in the RemoteNickFormat
+# optional (default empty)
+Label="Organization"
+
+
+
+###################################################################
+#
+# zulip
+#
+###################################################################
+
+[zulip]
+
+#You can configure multiple servers "[zulip.name]" or "[zulip.name2]"
+#In this example we use [zulip.streamchat]
+#REQUIRED
+
+[zulip.streamchat]
+#Token to connect with zulip API (called bot API key in Settings - Your bots)
+#REQUIRED
+Token="Yourtokenhere"
+
+#Username of the bot, normally called yourbot-bot@yourserver.zulipchat.com 
+#See username in Settings - Your bots 
+#REQUIRED
+Login="yourbot-bot@yourserver.zulipchat.com"
+
+#Servername of your zulip instance
+#REQUIRED 
+Server="https://yourserver.zulipchat.com"
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#Nicks you want to ignore. 
+#Regular expressions supported
+#Messages from those users will not be sent to other bridges.
+#OPTIONAL
+IgnoreNicks="spammer1 spammer2"
+
+#Messages you want to ignore. 
+#Messages matching these regexp will be ignored and not sent to other bridges
+#See https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (example below ignores messages starting with ~~ or messages containing badword
+IgnoreMessages="^~~ badword"
+
+#messages you want to replace.
+#it replaces outgoing messages from the bridge.
+#so you need to place it by the sending bridge definition.
+#regular expressions supported
+#some examples:
+#this replaces cat => dog and sleep => awake
+#replacemessages=[ ["cat","dog"], ["sleep","awake"] ]
+#this replaces every number with number.  123 => numbernumbernumber
+#replacemessages=[ ["[0-9]","number"] ]
+#optional (default empty)
+ReplaceMessages=[ ["cat","dog"] ]
+
+#nicks you want to replace.
+#see replacemessages for syntaxa
+#optional (default empty)
+ReplaceNicks=[ ["user--","user"] ]
+
+#Extractnicks is used to for example rewrite messages from other relaybots
+#See https://github.com/42wim/matterbridge/issues/713 and https://github.com/42wim/matterbridge/issues/466
+#some examples:
+#this replaces a message like "Relaybot: <relayeduser> something interesting" to "relayeduser: something interesting"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ] ]
+#you can use multiple entries for multiplebots
+#this also replaces a message like "otherbot: (relayeduser) something else" to "relayeduser: something else"
+#ExtractNicks=[ [ "Relaybot", "<(.*?)>\\s+" ],[ "otherbot","\\((.*?)\\)\\s+" ]
+#OPTIONAL (default empty)
+ExtractNicks=[ ["otherbot","<(.*?)>\\s+" ] ]
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Enable to show users joins/parts from other bridges 
+#Currently works for messages from the following bridges: irc, mattermost, slack, discord
+#OPTIONAL (default false)
+ShowJoinPart=false
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+#Enable to show topic changes from other bridges 
+#Only works hiding/show topic changes from slack bridge for now
+#OPTIONAL (default false)
+ShowTopicChange=false
+
+###################################################################
+#API
+###################################################################
+[api]
+#You can configure multiple API hooks
+#In this example we use [api.local]
+#REQUIRED
+
+[api.local]
+#Address to listen on for API
+#REQUIRED 
+BindAddress="127.0.0.1:4242"
+
+#Amount of messages to keep in memory
+#OPTIONAL (library default 10)
+Buffer=1000
+
+#Bearer token used for authentication
+#curl -H "Authorization: Bearer token" http://localhost:4242/api/messages
+#OPTIONAL (no authorization if token is empty)
+Token="mytoken"
+
+#extra label that can be used in the RemoteNickFormat
+#optional (default empty)
+Label=""
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#See [general] config section for default options
+RemoteNickFormat="{NICK}"
+
+
+
+###################################################################
+#General configuration
+###################################################################
+# Settings here are defaults that each protocol can override
+[general]
+
+## RELOADABLE SETTINGS
+## Settings below can be reloaded by editing the file
+
+#RemoteNickFormat defines how remote users appear on this bridge 
+#The string "{NICK}" (case sensitive) will be replaced by the actual nick / username.
+#The string "{BRIDGE}" (case sensitive) will be replaced by the sending bridge
+#The string "{LABEL}" (case sensitive) will be replaced by label= field of the sending bridge
+#The string "{PROTOCOL}" (case sensitive) will be replaced by the protocol used by the bridge
+#The string "{GATEWAY}" (case sensitive) will be replaced by the origin gateway name that is replicating the message.
+#The string "{CHANNEL}" (case sensitive) will be replaced by the origin channel name used by the bridge
+#The string "{TENGO}" (case sensitive) will be replaced by the output of the RemoteNickFormat script under [tengo]
+#OPTIONAL (default empty)
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#StripNick only allows alphanumerical nicks. See https://github.com/42wim/matterbridge/issues/285
+#It will strip other characters from the nick
+#OPTIONAL (default false)
+StripNick=false
+
+
+#MediaServerUpload (or MediaDownloadPath) and MediaServerDownload are used for uploading
+#images/files/video to a remote "mediaserver" (a webserver like caddy for example).
+#When configured images/files uploaded on bridges like mattermost, slack, telegram will be
+#downloaded and uploaded again to MediaServerUpload URL
+#MediaDownloadPath is the filesystem path where the media file will be placed, instead of uploaded,
+#for if Matterbridge has write access to the directory your webserver is serving.
+#It is an alternative to MediaServerUpload.
+#The MediaServerDownload will be used so that bridges without native uploading support:
+#gitter, irc and xmpp will be shown links to the files on MediaServerDownload
+#
+#More information https://github.com/42wim/matterbridge/wiki/Mediaserver-setup-%5Badvanced%5D
+#OPTIONAL (default empty)
+MediaServerUpload="https://user:pass@yourserver.com/upload"
+#OPTIONAL (default empty)
+MediaDownloadPath="/srv/http/yourserver.com/public/download"
+#OPTIONAL (default empty)
+MediaServerDownload="https://youserver.com/download"
+
+#MediaDownloadSize is the maximum size of attachments, videos, images
+#matterbridge will download and upload this file to bridges that also support uploading files.
+#eg downloading from slack to upload it to mattermost
+#
+#It will only download from bridges that don't have public links available, which are for the moment
+#slack, telegram, matrix and mattermost
+#
+#OPTIONAL (default 1000000 (1 megabyte))
+MediaDownloadSize=1000000
+
+#MediaDownloadBlacklist allows you to blacklist specific files from being downloaded.
+#Filenames matching these regexp will not be download/uploaded to the mediaserver
+#You can use regex for this, see https://regex-golang.appspot.com/assets/html/index.html for more regex info
+#OPTIONAL (default empty)
+MediaDownloadBlacklist=[".html$",".htm$"]
+
+#IgnoreFailureOnStart allows you to ignore failing bridges on startup.
+#Matterbridge will disable the failed bridge and continue with the other ones.
+#Context: https://github.com/42wim/matterbridge/issues/455
+#OPTIONAL (default false)
+IgnoreFailureOnStart=false
+
+###################################################################
+#Tengo configuration
+###################################################################
+#More information about tengo on: https://github.com/d5/tengo/blob/master/docs/tutorial.md and
+#https://github.com/d5/tengo/blob/master/docs/stdlib.md
+
+[tengo]
+#InMessage allows you to specify the location of a tengo (https://github.com/d5/tengo/) script.
+#This script will receive every incoming message and can be used to modify the Username and the Text of that message.
+#The script will have the following global variables:
+#to modify: msgUsername and msgText
+#to read: msgChannel and msgAccount
+#
+#The script is reloaded on every message, so you can modify the script on the fly.
+#
+#Example script can be found in https://github.com/42wim/matterbridge/tree/master/gateway/bench.tengo
+#and https://github.com/42wim/matterbridge/tree/master/contrib/example.tengo
+#
+#The example below will check if the text contains blah and if so, it'll replace the text and the username of that message.
+#text := import("text")
+#if text.re_match("blah",msgText) {
+#    msgText="replaced by this"
+#    msgUsername="fakeuser"
+#}
+#OPTIONAL (default empty)
+InMessage="example.tengo"
+
+#OutMessage allows you to specify the location of the script that
+#will be invoked on each message being sent to a bridge and can be used to modify the Username
+#and the Text of that message.
+#
+#The script will have the following global variables:
+#read-only:
+#inAccount, inProtocol, inChannel, inGateway, inEvent
+#outAccount, outProtocol, outChannel, outGateway, outEvent
+#
+#read-write:
+#msgText, msgUsername
+#
+#The script is reloaded on every message, so you can modify the script on the fly.
+#
+#The default script in https://github.com/42wim/matterbridge/tree/master/internal/tengo/outmessage.tengo
+#is compiled in and will be executed if no script is specified.
+#OPTIONAL (default empty)
+OutMessage="example.tengo"
+
+
+#RemoteNickFormat allows you to specify the location of a tengo (https://github.com/d5/tengo/) script.
+#The script will have the following global variables:
+#to modify: result
+#to read: channel, bridge, gateway, protocol, nick
+#
+#The result will be set in {TENGO} in the RemoteNickFormat key of every bridge where {TENGO} is specified
+#
+#The script is reloaded on every message, so you can modify the script on the fly.
+#
+#Example script can be found in https://github.com/42wim/matterbridge/tree/master/contrib/remotenickformat.tengo
+#
+#OPTIONAL (default empty)
+RemoteNickFormat="remotenickformat.tengo"
+
+###################################################################
+#Gateway configuration
+###################################################################
+
+#You can specify multiple gateways using [[gateway]]
+#Each gateway has a [[gateway.in]] and a [[gateway.out]]
+#[[gateway.in]] specifies the account and channels we will receive messages from.
+#[[gateway.out]] specifies the account and channels we will send the messages
+#from [[gateway.in]] to.
+#
+#Most of the time [[gateway.in]] and [[gateway.out]] are the same if you 
+#want bidirectional bridging. You can then use [[gateway.inout]]
+#
+
+[[gateway]]
+#REQUIRED and UNIQUE
+name="gateway1"
+#Enable enables this gateway
+##OPTIONAL (default false)
+enable=true
+
+    # [[gateway.in]] specifies the account and channels we will receive messages from.
+    # The following example bridges between mattermost and irc
+    [[gateway.in]]
+
+    # account specified above
+    # REQUIRED
+    account="irc.freenode"
+
+    # channel to connect on that account
+    # How to specify them for the different bridges:
+    #
+    # irc        - #channel (# is required) (this needs to be lowercase!)
+    # mattermost - channel (the channel name as seen in the URL, not the displayname)
+    # gitter     - username/room
+    # xmpp       - channel
+    # slack      - channel (without the #)
+    #            - ID:C123456 (where C123456 is the channel ID) does not work with webhook
+    # discord    - channel (without the #)
+    #            - ID:123456789 (where 123456789 is the channel ID)
+    #               (https://github.com/42wim/matterbridge/issues/57)
+    #            - category/channel (without the #) if you're using discord categories to group your channels
+    # telegram   - chatid (a large negative number, eg -123456789)
+    #             see (https://www.linkedin.com/pulse/telegram-bots-beginners-marco-frau)
+    # hipchat    - id_channel (see https://www.hipchat.com/account/xmpp for the correct channel)
+    # rocketchat - #channel (# is required (also needed for private channels!)
+    # matrix     - #channel:server (eg #yourchannel:matrix.org)
+    #            - encrypted rooms are not supported in matrix
+    # steam      - chatid (a large number).
+    #             The number in the URL when you click "enter chat room" in the browser
+    # whatsapp   - 48111222333-123455678999@g.us A unique group JID;
+    #              if you specify an empty string bridge will list all the possibilities
+    #            - "Group Name" if you specify a group name the bridge will hint its JID to specify
+    #              as group names might change in time and contain weird emoticons
+    # zulip      - stream/topic:topicname (without the #)
+    #                  
+    # REQUIRED
+    channel="#testing"
+
+        #OPTIONAL - only used for IRC and XMPP protocols at the moment
+        [gateway.in.options]
+        #OPTIONAL - your irc / xmpp channel key
+        key="yourkey"
+
+
+    #[[gateway.out]] specifies the account and channels we will sent messages to.
+    [[gateway.out]]
+    account="irc.freenode"
+    channel="#testing"
+
+        #OPTIONAL - only used for IRC and XMPP protocols at the moment
+        [gateway.out.options]
+        #OPTIONAL - your irc / xmpp channel key
+        key="yourkey"
+
+    #[[gateway.inout]] can be used when then channel will be used to receive from 
+    #and send messages to
+    [[gateway.inout]]
+    account="mattermost.work"
+    channel="off-topic"
+
+        #OPTIONAL - only used for IRC and XMPP protocols at the moment
+        [gateway.inout.options]
+        #OPTIONAL - your irc / xmpp channel key
+        key="yourkey"
+
+    [[gateway.inout]]
+    account="discord.game"
+    channel="mygreatgame"
+
+        #OPTIONAL - webhookurl only works for discord (it needs a different URL for each cahnnel)
+        [gateway.inout.options]
+        webhookurl="https://discordapp.com/api/webhooks/123456789123456789/C9WPqExYWONPDZabcdef-def1434FGFjstasJX9pYht73y"
+
+    [[gateway.inout]]
+    account="zulip.streamchat"
+    channel="general/topic:mytopic"
+
+    #API example
+    #[[gateway.inout]]
+    #account="api.local"
+    #channel="api"
+    #To send data to the api:
+    #curl -XPOST -H 'Content-Type: application/json'  -d '{"text":"test","username":"randomuser","gateway":"gateway1"}' http://localhost:4242/api/message
+    #To read from the api:
+    #curl http://localhost:4242/api/messages
+
+#If you want to do a 1:1 mapping between protocols where the channelnames are the same
+#e.g. slack and mattermost you can use the samechannelgateway configuration
+#the example configuration below send messages from channel testing on mattermost to
+#channel testing on slack and vice versa. (and for the channel testing2 and testing3)
+
+[[samechannelgateway]]
+   name="samechannel1"
+   enable = false
+   accounts = [ "mattermost.work","slack.hobby" ]
+   channels = [ "testing","testing2","testing3"]
