@@ -90,11 +90,15 @@ ynh_system_user_create $app
 # MODIFY A CONFIG FILE
 #=================================================
 
-cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
+ynh_replace_string "__PATH__" "$final_path" "../conf/systemd.service"
+#ynh_replace_string "__RAM__" "$ram" "../conf/conf/matterbridge.toml"
+#ynh_replace_string "__PORT__" "$port" "../conf/matterbridge.toml"
+#ynh_replace_string "__OP__" "$op" "../conf/matterbridge.toml"
+#ynh_replace_string "__RCON__" "$rcon" "../conf/matterbridge.toml"
+#ynh_replace_string "__PASSWD__" "$passwd" "../conf/matterbridge.toml"
+#ynh_replace_string "__EULA__" "$eula" "../conf/matterbridge.toml"
 
-#ynh_replace_string "yunouser"   "$db_name"    "$final_path/config/config_inc.php.sample"
-#ynh_replace_string "yunopass"   "$db_pwd"     "$final_path/config/config_inc.php.sample"
-#ynh_replace_string "yunobase"   "$db_name"    "$final_path/config/config_inc.php.sample"
+cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 
 #=================================================
 # SETUP SYSTEMD
