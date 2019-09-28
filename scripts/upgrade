@@ -11,7 +11,7 @@ final_path=/opt/yunohost/$app
 source /usr/share/yunohost/helpers
 
 # Stop emby-server service
-systemctl stop emby-server
+systemctl stop matterbridge
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -21,19 +21,12 @@ ynh_app_setting_set $app final_path $final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source "$final_path"
 
-#==============================================
-# INSTALL PLEX
-#==============================================
-
-dpkg --install $final_path/emby-server-deb*
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
 
 # Create a dedicated nginx config
 #ynh_add_nginx_config
-
 
 #=================================================
 # UPGRADE CONFIG
@@ -51,6 +44,19 @@ dpkg --install $final_path/emby-server-deb*
 #  ynh_app_setting_set "$app" unprotected_uris "/"
 #fi
 
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
+# SECURE FILES AND DIRECTORIES
+#=================================================
+
+### For security reason, any app should set the permissions to root: before anything else.
+### Then, if write authorization is needed, any access should be given only to directories
+### that really need such authorization.
+
+# Set permissions to app files
+chown -R $app: $final_path
+
 # Start emby-server service
-systemctl start emby-server
+systemctl start matterbridge
 
