@@ -17,16 +17,16 @@ domain=$(ynh_app_setting_get "$app" domain)
 path_url=$(ynh_app_setting_get "$app" path_url)
 
 # Check domain/path availability
-sudo yunohost app checkurl "${domain}${path_url}" -a "$app" \
+yunohost app checkurl "${domain}${path_url}" -a "$app" \
     || ynh_die "Path not available: ${domain}${path_url}"
 
 # Restore sources & data
-src_path="/var/www/${app}"
-sudo cp -a ./sources "$src_path"
+src_path="/opt/${app}"
+cp -a ./sources "$src_path"
 
 # Restore permissions to app files
 # you may need to make some file and/or directory writeable by www-data (nginx user)
-sudo chown -R root: "$src_path"
+chown -R root: "$src_path"
 
 ### MySQL (remove if not used) ###
 # If a MySQL database is used:
@@ -39,7 +39,7 @@ sudo chown -R root: "$src_path"
 ### MySQL end ###
 
 # Restore NGINX configuration
-sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
+cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
 
 ### PHP (remove if not used) ###
 # If a dedicated php-fpm process is used:
@@ -49,4 +49,4 @@ sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
 ### PHP end ###
 
 # Restart webserver
-sudo service nginx reload
+service nginx reload
