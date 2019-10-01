@@ -130,6 +130,7 @@ systemctl enable $app.service
 ### that really need such authorization.
 
 # Set permissions to app files
+chmod +x $final_path/matterbridge
 chown -R $app: $final_path
 
 # Reload services
