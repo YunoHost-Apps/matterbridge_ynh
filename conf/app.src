@@ -1,7 +1,7 @@
-SOURCE_URL=https://github.com/YunoHost-Apps/matterbridge_ynh/releases/download/1.16.0/matterbridge.tar.gz
-SOURCE_SUM=11235b8fdb72c3927cbc247aabfb2116f4a9909214d4c0304bbbbe0a8fdd2b2e106b89acb6781165f7a080a407119c622eaf58b266e0d4ac486a692405575ebf
+SOURCE_URL=https://github.com/42wim/matterbridge/releases/download/v1.16.0/matterbridge-1.16.0-linux-64bit
+SOURCE_SUM=dc98ad1486de283f0dd5a9230dbd318fd44378d5c8cb7d3337bd82756955b3799215e3f9d49c7e99b21e1e99f6029df8327f6b300b901480aa9e637941023c54
 SOURCE_SUM_PRG=sha512sum
-SOURCE_FORMAT=tar.gz
+SOURCE_FORMAT=
 SOURCE_IN_SUBDIR=false
-SOURCE_EXTRACT=true
-SOURCE_FILENAME=matterbridge.tar.gz
+SOURCE_EXTRACT=false
+SOURCE_FILENAME=matterbridge
