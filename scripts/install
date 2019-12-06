@@ -134,5 +134,4 @@ chmod +x $final_path/matterbridge
 chown -R $app: $final_path
 
 # Reload services
-#systemctl reload nginx
 systemctl restart $app
