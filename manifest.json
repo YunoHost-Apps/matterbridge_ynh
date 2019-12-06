@@ -6,7 +6,7 @@
         "en": "matterbridge package for YunoHost.",
         "fr": "matterbridge pour YunoHost."
     },
-    "version": "1.16.0",
+    "version": "1.16.2",
     "url": "https://github.com/42wim/matterbridge",
     "license": "GPL-3.0",
     "maintainer": {
