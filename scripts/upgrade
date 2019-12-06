@@ -55,6 +55,7 @@ ynh_setup_source "$final_path"
 ### that really need such authorization.
 
 # Set permissions to app files
+chmod +x $final_path/matterbridge
 chown -R $app: $final_path
 
 # Start emby-server service
