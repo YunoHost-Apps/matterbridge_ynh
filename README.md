@@ -1,7 +1,7 @@
 # matterbridge app for YunoHost
 matterbridge Server
 
-**Shipped version:** 1.16.5
+**Shipped version:** 1.17.4
 
 - [Yunohost project](https://yunohost.org)
 - [matterbridge website](https://github.com/42wim/matterbridge)
