@@ -118,6 +118,7 @@ ynh_store_file_checksum --file="$final_path/CONFIG_FILE"
 #=================================================
 
 # Set permissions on app files
+chmod +x $final_path/$app
 chown -R $app: $final_path
 
 #=================================================

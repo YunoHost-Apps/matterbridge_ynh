@@ -71,7 +71,7 @@ cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..."--weight=1
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -90,7 +90,7 @@ yunohost service add $app --description="A short description of the app" --log="
 #=================================================
 
 # Set permissions to app files
-chmod +x $final_path/matterbridge
+chmod +x $final_path/$app
 chown -R $app: $final_path
 
 #=================================================

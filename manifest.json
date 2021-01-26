@@ -3,8 +3,8 @@
     "id": "matterbridge",
     "packaging_format": 1,
     "description": {
-        "en": "matterbridge package for YunoHost.",
-        "fr": "matterbridge pour YunoHost."
+        "en": "Bridge between a series of chat protocols",
+        "fr": "Pont entre une série de protocoles de discussion"
     },
     "version": "1.21.0~ynh1",
     "url": "https://github.com/42wim/matterbridge",
@@ -35,10 +35,10 @@
                 "name": "is_public",
                 "type": "boolean",
                 "ask": {
-                    "en": "Is it a public site ?",
+                    "en": "Is it a public site?",
                     "fr": "Est-ce un site public ?"
                 },
-                "default": "true"
+                "default": true
             }
         ]
     }
