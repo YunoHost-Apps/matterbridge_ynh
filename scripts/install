@@ -21,8 +21,6 @@ ynh_abort_if_errors
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
-is_public=$YNH_APP_ARG_IS_PUBLIC
 architecture=$(ynh_detect_arch)
 
 app=$YNH_APP_INSTANCE_NAME
@@ -34,6 +32,12 @@ ynh_script_progression --message="Validating installation parameters..." --weigh
 
 final_path=/opt/yunohost/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
+
+# STORE SETTINGS FROM MANIFEST
+#=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+ynh_app_setting_set --app=$app --key=domain --value=$domain
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -90,17 +94,6 @@ ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Reload services
 ynh_systemd_action --service_name=$app --action=start --log_path="/var/log/$app/$app.log"
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Configuring permissions..." --weight=1
-
-# Make app public if necessary
-if [ $is_public -eq 1 ]
-then
-	ynh_permission_update --permission="main" --add="visitors" --show_tile="false"
-fi
 
 #=================================================
 # END OF SCRIPT

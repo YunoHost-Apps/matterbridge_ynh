@@ -30,15 +30,6 @@
                     "fr": "Choisissez un nom de domaine pour Matterbridge"
                 },
                 "example": "example.com"
-            },
-            {
-                "name": "is_public",
-                "type": "boolean",
-                "ask": {
-                    "en": "Is it a public site?",
-                    "fr": "Est-ce un site public ?"
-                },
-                "default": true
             }
         ]
     }
