@@ -19,19 +19,19 @@ Matterbridge est un pont entre une série de protocoles de discussion et propose
 
 ## Configuration
 
-Comment configurer cette application : un fichier brut en SSH `/var/www/matterbridge/materbridge.toml`.
+Comment configurer cette application : un fichier brut en SSH `/var/www/matterbridge/matterbridge.toml`.
 
 ## Documentation
 
- * Documentation officielle : Lien vers la documentation officielle de cette application.
+ * Documentation officielle : https://github.com/42wim/matterbridge/wiki
  * Documentation YunoHost : Si une documentation spécifique est nécessaire, n'hésitez pas à contribuer.
 
 ## Caractéristiques spécifiques YunoHost
 
 #### Support multi-utilisateur
 
-* L'authentification LDAP et HTTP est-elle prise en charge ?
-* L'application peut-elle être utilisée par plusieurs utilisateurs ?
+* L'authentification LDAP et HTTP est-elle prise en charge ? **Non**
+* L'application peut-elle être utilisée par plusieurs utilisateurs ? **Non**
 
 #### Architectures supportées
 

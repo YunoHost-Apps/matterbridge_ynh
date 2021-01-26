@@ -17,21 +17,21 @@ Matterbridge is a bridge between a series of chat protocols and offers a REST-AP
 
 ![](Link to a screenshot of this app.)
 
-## Configurationw
+## Configuration
 
-How to configure this app: a plain file with SSH `/var/www/matterbridge/materbridge.toml`.
+How to configure this app: a plain file with SSH `/var/www/matterbridge/matterbridge.toml`.
 
 ## Documentation
 
- * Official documentation: Link to the official documentation of this app
+ * Official documentation: https://github.com/42wim/matterbridge/wiki
  * YunoHost documentation: If specific documentation is needed, feel free to contribute.
 
 ## YunoHost specific features
 
 #### Multi-user support
 
-Are LDAP and HTTP auth supported?
-Can the app be used by multiple users?
+ * Are LDAP and HTTP auth supported? **No**
+ * Can the app be used by multiple users? **No**
 
 #### Supported architectures
 
