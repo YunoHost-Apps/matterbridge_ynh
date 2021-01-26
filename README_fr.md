@@ -1,70 +1,70 @@
 # Matterbridge pour YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
-[![Install matterbridge with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
+[![Niveau d'intégration](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
+[![Installer Matterbridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
-*[Lire ce readme en français.](./README_fr.md)*
+*[Read this readme in english.](./README.md)* 
 
-> *This package allows you to install Matterbridge quickly and simply on a YunoHost server.  
-If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
+> *Ce package vous permet d'installer Matterbridge rapidement et simplement sur un serveur YunoHost.  
+Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
 
-## Overview
+## Vue d'ensemble
 Quick description of this app.
 
-**Shipped version:** 1.21.0
+**Version incluse :** 1.21.0
 
-## Screenshots
+## Captures d'écran
 
 ![](Link to a screenshot of this app.)
 
-## Demo
+## Démo
 
-* [Official demo](Link to a demo site for this app.)
+* [Démo officielle](Lien vers un site de démonstration de cette application.)
 
 ## Configuration
 
-How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+Comment configurer cette application : via le panneau d'administration, un fichier brut en SSH ou tout autre moyen.
 
 ## Documentation
 
- * Official documentation: Link to the official documentation of this app
- * YunoHost documentation: If specific documentation is needed, feel free to contribute.
+ * Documentation officielle : Lien vers la documentation officielle de cette application.
+ * Documentation YunoHost : Si une documentation spécifique est nécessaire, n'hésitez pas à contribuer.
 
-## YunoHost specific features
+## Caractéristiques spécifiques YunoHost
 
-#### Multi-user support
+#### Support multi-utilisateur
 
-Are LDAP and HTTP auth supported?
-Can the app be used by multiple users?
+* L'authentification LDAP et HTTP est-elle prise en charge ?
+* L'application peut-elle être utilisée par plusieurs utilisateurs ?
 
-#### Supported architectures
+#### Architectures supportées
 
 * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/matterbridge%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/)
 * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/matterbridge%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/matterbridge/)
 
 ## Limitations
 
-* Any known limitations.
+* Limitations connues.
 
-## Additional information
+## Informations additionnelles
 
-* Other info you would like to add about this app.
+* Autres informations que vous souhaitez ajouter sur cette application.
 
 ## Links
 
- * Report a bug: https://github.com/YunoHost-Apps/matterbridge_ynh/issues
- * Upstream app repository: https://github.com/42wim/matterbridge
- * YunoHost website: https://yunohost.org/
+ * Signaler un bug : https://github.com/YunoHost-Apps/matterbridge_ynh/issues
+ * Dépôt de l'application principale : https://github.com/42wim/matterbridge
+ * Site web YunoHost : https://yunohost.org/
 
 ---
 
-## Developer info
+## Informations pour les développeurs
 
-Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing).
+Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing).
 
-To try the testing branch, please proceed like that.
+Pour essayer la branche testing, procédez comme suit.
 ```
 sudo yunohost app install https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing --debug
-or
+ou
 sudo yunohost app upgrade matterbridge -u https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing --debug
 ```
