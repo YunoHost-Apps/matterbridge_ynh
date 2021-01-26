@@ -3,12 +3,12 @@ Description=Multi-protocols bridge for online communications
 After=network.target
 
 [Service]
-WorkingDirectory=__PATH__
-User=matterbridge
-Group=users
 Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__FINALPATH__/
 UMask=000
-ExecStart=/opt/matterbridge/matterbridge -conf /opt/matterbridge/matterbridge.toml
+ExecStart=__FINALPATH__/matterbridge -conf __FINALPATH__/matterbridge.toml
 RestartSec=30
 Restart=always
 

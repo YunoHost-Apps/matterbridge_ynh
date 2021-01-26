@@ -39,13 +39,6 @@ test ! -e "$final_path" || ynh_die --message="This path already contains a folde
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-#ynh_script_progression --message="Installing dependencies..." --time --weight=1
-
-#ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --time --weight=1
@@ -53,13 +46,6 @@ ynh_script_progression --message="Setting up source files..." --time --weight=1
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-
-# Create a dedicated nginx config
-#ynh_add_nginx_config
 
 #=================================================
 # CREATE DEDICATED USER
@@ -73,15 +59,14 @@ ynh_system_user_create --username=$app
 # MODIFY A CONFIG FILE
 #=================================================
 
-ynh_replace_string "__PATH__" "$final_path" "../conf/systemd.service"
+cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
+
 #ynh_replace_string "__RAM__" "$ram" "../conf/conf/matterbridge.toml"
 #ynh_replace_string "__PORT__" "$port" "../conf/matterbridge.toml"
 #ynh_replace_string "__OP__" "$op" "../conf/matterbridge.toml"
 #ynh_replace_string "__RCON__" "$rcon" "../conf/matterbridge.toml"
 #ynh_replace_string "__PASSWD__" "$passwd" "../conf/matterbridge.toml"
 #ynh_replace_string "__EULA__" "$eula" "../conf/matterbridge.toml"
-
-cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 
 #=================================================
 # SETUP SYSTEMD
@@ -99,18 +84,6 @@ ynh_script_progression --message="Integrating service in YunoHost..." --time --w
 yunohost service add $app --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-### `ynh_store_file_checksum` is used to store the checksum of a file.
-### That way, during the upgrade script, by using `ynh_backup_if_checksum_is_different`,
-### you can make a backup of this file before modifying it again if the admin had modified it.
-
-# Calculate and store the config file checksum into the app settings
-#ynh_store_file_checksum "/etc/onlyoffice/documentserver/nginx/onlyoffice-documentserver.conf"
-
-
-#=================================================
 # GENERIC FINALIZATION
 #=================================================
 # SECURE FILES AND DIRECTORIES
@@ -126,7 +99,7 @@ chown -R $app: $final_path
 ynh_script_progression --message="Starting a systemd service..." --time --weight=1
 
 # Reload services
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action=start --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # END OF SCRIPT
