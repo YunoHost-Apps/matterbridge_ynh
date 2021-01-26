@@ -1,35 +1,24 @@
-[mattermost.mymattermost]
-#The mattermost hostname. (do not prefix it with http or https)
-Server="yourmattermostserver.domain:443"
+[irc]
+    [irc.freenode]
+    Server="irc.freenode.net:6667"
+    Nick="yourbotname"
 
-#the team name as can be seen in the mattermost webinterface URL
-#in lowercase, without spaces
-Team="yourteam"
-
-#login/pass of your bot.
-#Use a dedicated user for this and not your own!
-Login="yourlogin"
-Password="yourpass"
-
-RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
-PrefixMessagesWithNick=true
-
-
-[irc.myirc]
-Server="irc.whatever.net:6667"
-Nick="yourbotnick"
-Password="yourNickservPassword"
-
+[mattermost]
+    [mattermost.work]
+    Server="yourmattermostserver.tld"
+    Team="yourteam"
+    Login="yourlogin"
+    Password="yourpass"
+    PrefixMessagesWithNick=true
+    RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
 
 [[gateway]]
-name="gateway1"
+name="mygateway"
 enable=true
+    [[gateway.inout]]
+    account="irc.freenode"
+    channel="#testing"
 
-[[gateway.inout]]
-account="irc.myirc"
-channel="#some-passworded-channel"
-options = { key="password" }
-
-[[gateway.inout]]
-account="mattermost.mymattermost"
-channel="https://yourmattermostserver/yourteam/channels/channel_name"
+    [[gateway.inout]]
+    account="mattermost.work"
+    channel="off-topic"
