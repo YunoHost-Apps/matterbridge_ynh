@@ -64,13 +64,6 @@ ynh_script_progression --message="Configuring a systemd service..." --weight=1
 ynh_add_systemd_config
 
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="Multi-protocols bridge for online communications" --log="/var/log/$app/$app.log"
-
-#=================================================
 # GENERIC FINALIZATION
 #=================================================
 # SECURE FILES AND DIRECTORIES
@@ -79,6 +72,13 @@ yunohost service add $app --description="Multi-protocols bridge for online commu
 # Set permissions to app files
 chmod +x $final_path/$app
 chown -R $app: $final_path
+
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+
+yunohost service add $app --description="Multi-protocols bridge for online communications" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

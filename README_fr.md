@@ -13,13 +13,9 @@ Matterbridge est un pont entre une série de protocoles de discussion et propose
 
 **Version incluse :** 1.21.0
 
-## Captures d'écran
-
-![](Link to a screenshot of this app.)
-
 ## Configuration
 
-Comment configurer cette application : un fichier brut en SSH `/var/www/matterbridge/matterbridge.toml`. Vous pouvez suivre cette [documentation](https://github.com/42wim/matterbridge/wiki/How-to-create-your-config) sur la façon de créer votre config. 
+Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/matterbridge/matterbridge.toml`. Vous pouvez suivre cette [documentation](https://github.com/42wim/matterbridge/wiki/How-to-create-your-config) sur la façon de créer votre config. 
 
 ## Documentation
 
