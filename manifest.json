@@ -10,8 +10,8 @@
     "url": "https://github.com/42wim/matterbridge",
     "license": "Apache-2.0",
     "maintainer": {
-        "name": "",
-        "email": ""
+        "name": "liberodark",
+        "email": "liberodark@gmail.com"
     },
     "requirements": {
         "yunohost": ">= 4.0.0"

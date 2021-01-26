@@ -21,7 +21,7 @@ Matterbridge is a bridge between a series of chat protocols and offers a REST-AP
 
 * [Official demo](Link to a demo site for this app.)
 
-## Configuration
+## Configurationw
 
 How to configure this app: From an admin panel, a plain file with SSH, or any other way.
 

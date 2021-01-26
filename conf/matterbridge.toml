@@ -1,3 +1,6 @@
+
+
+
 [mattermost.mymattermost]
 #The mattermost hostname. (do not prefix it with http or https)
 Server="yourmattermostserver.domain:443"
