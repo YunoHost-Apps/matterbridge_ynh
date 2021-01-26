@@ -27,50 +27,38 @@ ynh_abort_if_errors
 # Retrieve arguments
 is_public=$YNH_APP_ARG_IS_PUBLIC
 
-### If it's a multi-instance app, meaning it can be installed several times independently
-### The id of the app as stated in the manifest is available as $YNH_APP_ID
-### The instance number is available as $YNH_APP_INSTANCE_NUMBER (equals "1", "2", ...)
-### The app instance name is available as $YNH_APP_INSTANCE_NAME
-###    - the first time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample
-###    - the second time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample__2
-###    - ynhexample__{N} for the subsequent installations, with N=3,4, ...
-### The app instance name is probably what interests you most, since this is
-### guaranteed to be unique. This is a good unique identifier to define installation path,
-### db names, ...
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
+ynh_script_progression --message="Validating installation parameters..." --time --weight=1
 
-### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
-### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
-final_path=/opt/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
+final_path=/var/www/$app
+test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
-ynh_app_setting_set $app is_public $is_public
-
+# Register (book) web path
+ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
+ynh_script_progression --message="Installing dependencies..." --time --weight=1
 
-ynh_print_info "Installing dependencies..."
-
-### `ynh_install_app_dependencies` allows you to add any "apt" dependencies to the package.
-### Those deb packages will be installed as dependencies of this package.
-### If you're not using this helper:
-###		- Remove the section "REMOVE DEPENDENCIES" in the remove script
-###		- As well as the section "REINSTALL DEPENDENCIES" in the restore script
-###		- And the section "UPGRADE DEPENDENCIES" in the upgrade script
+#ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-ynh_app_setting_set $app final_path $final_path
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+ynh_script_progression --message="Setting up source files..." --time --weight=1
+
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
+ynh_setup_source --dest_dir="$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -82,9 +70,10 @@ ynh_setup_source "$final_path"
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Configuring system user..." --time --weight=1
 
 # Create a system user
-ynh_system_user_create $app
+ynh_system_user_create --username=$app
 
 #=================================================
 # MODIFY A CONFIG FILE
@@ -103,9 +92,17 @@ cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 #=================================================
 # SETUP SYSTEMD
 #=================================================
+ynh_script_progression --message="Configuring a systemd service..." --time --weight=1
 
+# Create a dedicated systemd config
 ynh_add_systemd_config
-systemctl enable $app.service
+
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+
+yunohost service add $app --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
@@ -125,13 +122,20 @@ systemctl enable $app.service
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
 # Set permissions to app files
 chmod +x $final_path/matterbridge
 chown -R $app: $final_path
 
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+
 # Reload services
-systemctl restart $app
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Installation of $app completed" --time --last
