@@ -21,6 +21,7 @@ ynh_abort_if_errors
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
+path_url="/"
 architecture=$(ynh_detect_arch)
 
 app=$YNH_APP_INSTANCE_NAME
@@ -38,6 +39,7 @@ test ! -e "$final_path" || ynh_die --message="This path already contains a folde
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
+ynh_app_setting_set --app=$app --key=path --value=$path_url
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
