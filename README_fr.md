@@ -17,13 +17,9 @@ Matterbridge est un pont entre une série de protocoles de discussion et propose
 
 ![](Link to a screenshot of this app.)
 
-## Démo
-
-* [Démo officielle](Lien vers un site de démonstration de cette application.)
-
 ## Configuration
 
-Comment configurer cette application : via le panneau d'administration, un fichier brut en SSH ou tout autre moyen.
+Comment configurer cette application : un fichier brut en SSH `/var/www/matterbridge/materbridge.toml`.
 
 ## Documentation
 

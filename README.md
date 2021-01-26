@@ -17,13 +17,9 @@ Matterbridge is a bridge between a series of chat protocols and offers a REST-AP
 
 ![](Link to a screenshot of this app.)
 
-## Demo
-
-* [Official demo](Link to a demo site for this app.)
-
 ## Configurationw
 
-How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+How to configure this app: a plain file with SSH `/var/www/matterbridge/materbridge.toml`.
 
 ## Documentation
 
