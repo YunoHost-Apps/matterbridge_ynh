@@ -99,7 +99,11 @@ ynh_systemd_action --service_name=$app --action=start --log_path="/var/log/$app/
 #=================================================
 ynh_script_progression --message="Configuring permissions..." --weight=1
 
-ynh_permission_create --permission="api" --url "/api" --allowed="visitors" --show_tile="false" --protected="true"
+# Make app public if necessary
+if [ $is_public -eq 1 ]
+then
+	ynh_permission_update --permission="main" --add="visitors" --show_tile="false"
+fi
 
 #=================================================
 # END OF SCRIPT
