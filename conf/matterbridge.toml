@@ -1,6 +1,3 @@
-
-
-
 [mattermost.mymattermost]
 #The mattermost hostname. (do not prefix it with http or https)
 Server="yourmattermostserver.domain:443"
@@ -29,5 +26,3 @@ channel="prtocolchannel"
 [[gateway.inout]]
 account="protocol2.myprotocol2"
 channel="protocol2channel"
-
-
