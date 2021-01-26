@@ -1,5 +1,5 @@
 {
-    "name": "matterbridge",
+    "name": "Matterbridge",
     "id": "matterbridge",
     "packaging_format": 1,
     "description": {
@@ -8,13 +8,13 @@
     },
     "version": "1.21.0~ynh1",
     "url": "https://github.com/42wim/matterbridge",
-    "license": "GPL-3.0",
+    "license": "Apache-2.0",
     "maintainer": {
-        "name": "liberodark",
-        "email": "liberodark@gmail.com"
+        "name": "",
+        "email": ""
     },
     "requirements": {
-        "yunohost": ">= 3.8.1"
+        "yunohost": ">= 4.0.0"
     },
     "multi_instance": false,
     "services": [
@@ -26,8 +26,8 @@
                 "name": "domain",
                 "type": "domain",
                 "ask": {
-                    "en": "Choose a domain name for ynhexample",
-                    "fr": "Choisissez un nom de domaine pour ynhexample"
+                    "en": "Choose a domain name for Matterbridge",
+                    "fr": "Choisissez un nom de domaine pour Matterbridge"
                 },
                 "example": "example.com"
             },
