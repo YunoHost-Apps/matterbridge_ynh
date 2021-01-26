@@ -17,9 +17,7 @@
         "yunohost": ">= 4.0.0"
     },
     "multi_instance": false,
-    "services": [
-        "nginx"
-    ],
+    "services": [],
         "arguments": {
         "install" : [
             {
