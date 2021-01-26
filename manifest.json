@@ -20,19 +20,6 @@
     "services": [],
         "arguments": {
         "install" : [
-            {
-                "name": "domain",
-                "type": "domain",
-                "ask": {
-                    "en": "Choose a domain name for Matterbridge",
-                    "fr": "Choisissez un nom de domaine pour Matterbridge"
-                },
-                "help": {
-                    "en": "Matterbridge needs to be installed in its own root domain or subdomain.",
-                    "fr": "Matterbridge doit être installé dans son propre domaine racine ou sous-domaine."
-                },
-                "example": "matterbridge.example.com"
-            }
         ]
     }
 }
