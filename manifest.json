@@ -3,7 +3,7 @@
     "id": "matterbridge",
     "packaging_format": 1,
     "description": {
-        "en": "Bridge between a series of chat protocols",
+        "en": "Multi-protocols bridge for online communications",
         "fr": "Pont entre une série de protocoles de discussion"
     },
     "version": "1.21.0~ynh1",
