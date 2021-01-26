@@ -15,14 +15,21 @@ RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
 PrefixMessagesWithNick=true
 
 
+[irc.myirc]
+Server="irc.whatever.net:6667"
+Nick="yourbotnick"
+Password="yourNickservPassword"
+
+
 [[gateway]]
 name="gateway1"
 enable=true
 
 [[gateway.inout]]
-account="protocol.myprotocol"
-channel="prtocolchannel"
+account="irc.myirc"
+channel="#some-passworded-channel"
+options = { key="password" }
 
 [[gateway.inout]]
-account="protocol2.myprotocol2"
-channel="protocol2channel"
+account="mattermost.mymattermost"
+channel="https://yourmattermostserver/yourteam/channels/channel_name"

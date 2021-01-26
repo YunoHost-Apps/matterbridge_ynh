@@ -59,7 +59,7 @@ ynh_system_user_create --username=$app
 # MODIFY A CONFIG FILE
 #=================================================
 
-cp -a ../conf/matterbridge.toml.example $final_path/matterbridge.toml
+cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 
 #=================================================
 # SETUP SYSTEMD
