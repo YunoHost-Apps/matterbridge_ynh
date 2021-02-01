@@ -1,48 +1,80 @@
 #!/bin/bash
 
-# Exit on command errors and treat unset variables as an error
-set -eu
+#=================================================
+# GENERIC START
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
 
-# See comments in install script
-app=$YNH_APP_INSTANCE_NAME
-final_path=/opt/yunohost/$app
-
-# Source YunoHost helpers
+source _common.sh
 source /usr/share/yunohost/helpers
 
-# Stop emby-server service
-systemctl stop matterbridge
+#=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_script_progression --message="Loading installation settings..." --weight=1
+
+app=$YNH_APP_INSTANCE_NAME
+
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+architecture=$(ynh_detect_arch)
+
+#=================================================
+# CHECK VERSION
+#=================================================
+
+upgrade_type=$(ynh_check_app_version_changed)
+
+#=================================================
+# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
+#=================================================
+ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
+
+# Backup the current version of the app
+ynh_backup_before_upgrade
+ynh_clean_setup () {
+	# Restore it if the upgrade fails
+	ynh_restore_upgradebackup
+}
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
+
+#=================================================
+# STANDARD UPGRADE STEPS
+#=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Stopping a systemd service..." --weight=1
+
+ynh_systemd_action --service_name=$app --action=stop --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-ynh_app_setting_set $app final_path $final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
+if [ "$upgrade_type" == "UPGRADE_APP" ]
+then
+	ynh_script_progression --message="Upgrading source files..." --weight=2
+
+	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
+fi
 
 #=================================================
-# NGINX CONFIGURATION
+# CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..." --weight=4
 
-# Create a dedicated nginx config
-#ynh_add_nginx_config
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username=$app
 
 #=================================================
-# UPGRADE CONFIG
+# SETUP SYSTEMD
 #=================================================
-#cp -a ../conf/loolwsd.xml /etc/loolwsd
-#ynh_replace_string "__NEXTCLOUDDOMAIN__" "$nextcloud_domain" "/etc/loolwsd/loolwsd.xml"
-#ynh_replace_string "__PASSWORD__" "$password" "/etc/loolwsd/loolwsd.xml"
-#systemctl restart loolwsd
+ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 
-
-
-# If app is public, add url to SSOWat conf as skipped_uris
-#if [[ $is_public -eq 1 ]]; then
-  # See install script
-#  ynh_app_setting_set "$app" unprotected_uris "/"
-#fi
+# Create a dedicated systemd config
+ynh_add_systemd_config
 
 #=================================================
 # GENERIC FINALIZATION
@@ -50,14 +82,26 @@ ynh_setup_source "$final_path"
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
-# Set permissions to app files
-chmod +x $final_path/matterbridge
+# Set permissions on app files
+chmod +x $final_path/$app
 chown -R $app: $final_path
 
-# Start emby-server service
-systemctl start matterbridge
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
+yunohost service add $app --description="Multi-protocols bridge for online communications" --log="/var/log/$app/$app.log"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..." --weight=2
+
+ynh_systemd_action --service_name=$app --action=start --log_path="/var/log/$app/$app.log"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Upgrade of $app completed" --last

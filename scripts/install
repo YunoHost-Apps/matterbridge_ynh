@@ -13,11 +13,6 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
-ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
-}
-# Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
 #=================================================
@@ -25,99 +20,48 @@ ynh_abort_if_errors
 #=================================================
 
 # Retrieve arguments
-is_public=$YNH_APP_ARG_IS_PUBLIC
+architecture=$(ynh_detect_arch)
 
-### If it's a multi-instance app, meaning it can be installed several times independently
-### The id of the app as stated in the manifest is available as $YNH_APP_ID
-### The instance number is available as $YNH_APP_INSTANCE_NUMBER (equals "1", "2", ...)
-### The app instance name is available as $YNH_APP_INSTANCE_NAME
-###    - the first time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample
-###    - the second time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample__2
-###    - ynhexample__{N} for the subsequent installations, with N=3,4, ...
-### The app instance name is probably what interests you most, since this is
-### guaranteed to be unique. This is a good unique identifier to define installation path,
-### db names, ...
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
+ynh_script_progression --message="Validating installation parameters..." --weight=1
 
-### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
-### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
-final_path=/opt/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
-
-ynh_app_setting_set $app is_public $is_public
-
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-
-ynh_print_info "Installing dependencies..."
-
-### `ynh_install_app_dependencies` allows you to add any "apt" dependencies to the package.
-### Those deb packages will be installed as dependencies of this package.
-### If you're not using this helper:
-###		- Remove the section "REMOVE DEPENDENCIES" in the remove script
-###		- As well as the section "REINSTALL DEPENDENCIES" in the restore script
-###		- And the section "UPGRADE DEPENDENCIES" in the upgrade script
+final_path=/opt/yunohost/$app
+test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression --message="Setting up source files..." --weight=1
 
-ynh_app_setting_set $app final_path $final_path
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-
-# Create a dedicated nginx config
-#ynh_add_nginx_config
+ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Configuring system user..." --weight=5
 
 # Create a system user
-ynh_system_user_create $app
+ynh_system_user_create --username=$app
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-
-ynh_replace_string "__PATH__" "$final_path" "../conf/systemd.service"
-#ynh_replace_string "__RAM__" "$ram" "../conf/conf/matterbridge.toml"
-#ynh_replace_string "__PORT__" "$port" "../conf/matterbridge.toml"
-#ynh_replace_string "__OP__" "$op" "../conf/matterbridge.toml"
-#ynh_replace_string "__RCON__" "$rcon" "../conf/matterbridge.toml"
-#ynh_replace_string "__PASSWD__" "$passwd" "../conf/matterbridge.toml"
-#ynh_replace_string "__EULA__" "$eula" "../conf/matterbridge.toml"
 
 cp -a ../conf/matterbridge.toml $final_path/matterbridge.toml
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
+# Create a dedicated systemd config
 ynh_add_systemd_config
-systemctl enable $app.service
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-### `ynh_store_file_checksum` is used to store the checksum of a file.
-### That way, during the upgrade script, by using `ynh_backup_if_checksum_is_different`,
-### you can make a backup of this file before modifying it again if the admin had modified it.
-
-# Calculate and store the config file checksum into the app settings
-#ynh_store_file_checksum "/etc/onlyoffice/documentserver/nginx/onlyoffice-documentserver.conf"
-
 
 #=================================================
 # GENERIC FINALIZATION
@@ -125,13 +69,27 @@ systemctl enable $app.service
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
 # Set permissions to app files
-chmod +x $final_path/matterbridge
+chmod +x $final_path/$app
 chown -R $app: $final_path
 
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+
+yunohost service add $app --description="Multi-protocols bridge for online communications" --log="/var/log/$app/$app.log"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..." --weight=1
+
 # Reload services
-systemctl restart $app
+ynh_systemd_action --service_name=$app --action=start --log_path="/var/log/$app/$app.log"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Installation of $app completed" --last
