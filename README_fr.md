@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Vue d'ensemble
 Matterbridge est un pont entre une série de protocoles de discussion et propose une REST-API. Les protocoles pris en charge sont entre autres IRC, XMPP, Gitter, Mattermost, Slack, Discord, Telegram, Rocket.Chat, Hipchat (via xmpp), Matrix, Steam, ssh-chat et Zulip.
 
-**Version incluse :** 1.21.0
+**Version incluse :** 1.22.0
 
 ## Configuration
 
