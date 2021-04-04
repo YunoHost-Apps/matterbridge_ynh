@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Vue d'ensemble
 Matterbridge est un pont entre une série de protocoles de discussion et propose une REST-API. Les protocoles pris en charge sont entre autres IRC, XMPP, Gitter, Mattermost, Slack, Discord, Telegram, Rocket.Chat, Hipchat (via xmpp), Matrix, Steam, ssh-chat et Zulip.
 
-**Version incluse :** 1.22.0
+**Version incluse :** 1.22.1
 
 ## Configuration
 
@@ -31,8 +31,8 @@ Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/mat
 
 #### Architectures supportées
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/matterbridge%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/matterbridge%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/matterbridge/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/matterbridge.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/matterbridge.svg)](https://ci-apps-arm.yunohost.org/ci/apps/matterbridge/)
 
 ## Limitations
 
