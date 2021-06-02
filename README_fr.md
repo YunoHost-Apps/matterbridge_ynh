@@ -25,6 +25,9 @@ Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/mat
 
 ## Documentations et ressources
 
+* Site officiel de l'app : https://github.com/42wim/matterbridge
+* Documentation officielle de l'admin : https://github.com/42wim/matterbridge/wiki
+* Dépôt de code officiel de l'app : https://github.com/42wim/matterbridge
 * Documentation YunoHost pour cette app : https://yunohost.org/app_matterbridge
 * Signaler un bug : https://github.com/YunoHost-Apps/matterbridge_ynh/issues
 
