@@ -26,6 +26,15 @@
     "services": [],
         "arguments": {
         "install" : [
+            {
+                "name": "is_placeholder_argument",
+                "type": "boolean",
+                "ask": {
+                    "en": "This is a placeholder argument to fix no arguments problem in yunohost when the manifest needs no arguments from user",
+                    "fr": "Il s'agit d'un argument d'espace réservé pour résoudre le problème d'absence d'arguments dans yunohost lorsque le manifeste n'a besoin d'aucun argument de l'utilisateur"
+                },
+                "default": "true"
+            }
         ]
     }
 }
