@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/42wim/matterbridge/releases/download/v1.23.1/matterbridge-1.23.1-linux-arm64
-SOURCE_SUM=f097efc3b075600bc0bd0c1401c0b3bd848dde815d1182b71c9dbad8a38a569f
+SOURCE_URL=https://github.com/42wim/matterbridge/releases/download/v1.23.2/matterbridge-1.23.2-linux-arm64
+SOURCE_SUM=a5a93c3e62f25b1c4a9d5d59a7e28288bc733af1a3a579245b0ced9de68843ad
 SOURCE_SUM_PRG=sha256sum
 SOURCE_IN_SUBDIR=false
 SOURCE_FILENAME=matterbridge
