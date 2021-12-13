@@ -20,7 +20,7 @@ ynh_abort_if_errors
 #=================================================
 
 # Retrieve arguments
-architecture=$(ynh_detect_arch)
+architecture=$YNH_ARCH
 
 app=$YNH_APP_INSTANCE_NAME
 
