@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Connecteur entre une série de protocoles de discussion
 
-**Version incluse :** 1.23.2~ynh2
+**Version incluse :** 1.24.0~ynh1
 
 
 
