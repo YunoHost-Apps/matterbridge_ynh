@@ -65,23 +65,28 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=2
 
 	# Create a temporary directory
-	tmpdir="$(mktemp -d)"
+	#tmpdir="$(mktemp -d)"
 
 	# Backup the config file in the temp dir
-	cp -a "$final_path/matterbridge.toml" "$tmpdir/matterbridge.toml"
+	#cp -a "$final_path/matterbridge.toml" "$tmpdir/matterbridge.toml"
 
 	# Remove the app directory securely
-	ynh_secure_remove --file="$final_path"
+	#ynh_secure_remove --file="$final_path"
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
+	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture" --keep="$final_path/matterbridge.toml"
 
 	# Copy the admin saved settings from tmp directory to final path	
-	cp -a "$tmpdir/matterbridge.toml" "$final_path/matterbridge.toml" 
+	#cp -a "$tmpdir/matterbridge.toml" "$final_path/matterbridge.toml" 
 
 	# Remove the tmp directory securely
-	ynh_secure_remove --file="$tmpdir"
+	#ynh_secure_remove --file="$tmpdir"
 fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
+chmod +x $final_path/$app
 
 #=================================================
 # SETUP SYSTEMD
@@ -90,16 +95,6 @@ ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-# Set permissions on app files
-chmod +x $final_path/$app
-chown -R $app: $final_path
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
