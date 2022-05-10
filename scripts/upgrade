@@ -17,7 +17,6 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-architecture=$YNH_ARCH
 
 #=================================================
 # CHECK VERSION
@@ -74,7 +73,7 @@ then
 	#ynh_secure_remove --file="$final_path"
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture" --keep="$final_path/matterbridge.toml"
+	ynh_setup_source --dest_dir="$final_path" --source_id=$YNH_ARCH --keep="$final_path/matterbridge.toml"
 
 	# Copy the admin saved settings from tmp directory to final path	
 	#cp -a "$tmpdir/matterbridge.toml" "$final_path/matterbridge.toml" 
