@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Matterbridge for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Working status](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
 [![Install Matterbridge with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -17,10 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Multi-protocols bridge for online communications
 
-**Shipped version:** 1.25.1~ynh1
-
-
-
+**Shipped version:** 1.25.2~ynh1
 ## Disclaimers / important information
 
 ## Configuration
@@ -29,21 +26,22 @@ How to configure this app: a plain file with SSH `/opt/yunohost/matterbridge/mat
 
 ## Documentation and resources
 
-* Official app website: https://github.com/42wim/matterbridge
-* Official admin documentation: https://github.com/42wim/matterbridge/wiki
-* Upstream app code repository: https://github.com/42wim/matterbridge
-* YunoHost documentation for this app: https://yunohost.org/app_matterbridge
-* Report a bug: https://github.com/YunoHost-Apps/matterbridge_ynh/issues
+* Official app website: <https://github.com/42wim/matterbridge>
+* Official admin documentation: <https://github.com/42wim/matterbridge/wiki>
+* Upstream app code repository: <https://github.com/42wim/matterbridge>
+* YunoHost documentation for this app: <https://yunohost.org/app_matterbridge>
+* Report a bug: <https://github.com/YunoHost-Apps/matterbridge_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade matterbridge -u https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>
