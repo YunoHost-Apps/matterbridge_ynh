@@ -6,7 +6,7 @@
         "en": "Multi-protocols bridge for online communications",
         "fr": "Connecteur entre une série de protocoles de discussion"
     },
-    "version": "1.25.1~ynh1",
+    "version": "1.25.2~ynh1",
     "url": "https://github.com/42wim/matterbridge",
     "upstream": {
         "license": "Apache-2.0",

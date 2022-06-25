@@ -50,7 +50,7 @@ ynh_setup_source --dest_dir="$final_path" --source_id=$YNH_ARCH
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
-chmod +x $final_path/$app
+chmod +x $final_path/matterbridge
 
 #=================================================
 # MODIFY A CONFIG FILE
