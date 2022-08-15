@@ -18,6 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 Multi-protocols bridge for online communications
 
 **Shipped version:** 1.25.2~ynh1
+
 ## Disclaimers / important information
 
 ## Configuration
