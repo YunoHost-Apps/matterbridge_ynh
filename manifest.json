@@ -6,11 +6,10 @@
         "en": "Multi-protocols bridge for online communications",
         "fr": "Connecteur entre une série de protocoles de discussion"
     },
-    "version": "1.25.2~ynh1",
+    "version": "1.25.2~ynh2",
     "url": "https://github.com/42wim/matterbridge",
     "upstream": {
         "license": "Apache-2.0",
-        "website": "https://github.com/42wim/matterbridge",
         "admindoc": "https://github.com/42wim/matterbridge/wiki",
         "code": "https://github.com/42wim/matterbridge"
     },
@@ -20,7 +19,7 @@
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.9"
     },
     "multi_instance": false,
     "services": [],

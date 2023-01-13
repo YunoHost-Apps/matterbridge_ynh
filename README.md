@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Multi-protocols bridge for online communications
 
-**Shipped version:** 1.25.2~ynh1
+**Shipped version:** 1.25.2~ynh2
 ## Disclaimers / important information
 
 ## Configuration
@@ -26,7 +26,6 @@ How to configure this app: a plain file with SSH `/opt/yunohost/matterbridge/mat
 
 ## Documentation and resources
 
-* Official app website: <https://github.com/42wim/matterbridge>
 * Official admin documentation: <https://github.com/42wim/matterbridge/wiki>
 * Upstream app code repository: <https://github.com/42wim/matterbridge>
 * YunoHost documentation for this app: <https://yunohost.org/app_matterbridge>
