@@ -1,5 +1,5 @@
 [Unit]
-Description=Multi-protocols bridge for online communications
+Description=Matterbridge: Multi-protocols bridge
 After=network.target
 
 [Service]

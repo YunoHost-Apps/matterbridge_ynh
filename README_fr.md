@@ -5,19 +5,19 @@ It shall NOT be edited by hand.
 
 # Matterbridge pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
 [![Installer Matterbridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Matterbridge rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Matterbridge rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Connecteur entre une série de protocoles de discussion
 
-**Version incluse :** 1.25.2~ynh2
+**Version incluse :** 1.26.0~ynh1
 ## Avertissements / informations importantes
 
 ## Configuration
@@ -26,8 +26,8 @@ Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/mat
 
 ## Documentations et ressources
 
-* Documentation officielle de l'admin : <https://github.com/42wim/matterbridge/wiki>
-* Dépôt de code officiel de l'app : <https://github.com/42wim/matterbridge>
+* Documentation officielle de l’admin : <https://github.com/42wim/matterbridge/wiki>
+* Dépôt de code officiel de l’app : <https://github.com/42wim/matterbridge>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_matterbridge>
 * Signaler un bug : <https://github.com/YunoHost-Apps/matterbridge_ynh/issues>
 
@@ -43,4 +43,4 @@ ou
 sudo yunohost app upgrade matterbridge -u https://github.com/YunoHost-Apps/matterbridge_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>

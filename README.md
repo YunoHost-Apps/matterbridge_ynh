@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Matterbridge for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Working status](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Working status](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
 [![Install Matterbridge with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Multi-protocols bridge for online communications
 
-**Shipped version:** 1.25.2~ynh2
+**Shipped version:** 1.26.0~ynh1
 ## Disclaimers / important information
 
 ## Configuration
