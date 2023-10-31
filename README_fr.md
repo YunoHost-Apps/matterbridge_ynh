@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # Matterbridge pour YunoHost
 
 [![Niveau d’intégration](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
+
 [![Installer Matterbridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
 *[Read this readme in english.](./README.md)*
@@ -28,7 +29,7 @@ Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/mat
 
 * Documentation officielle de l’admin : <https://github.com/42wim/matterbridge/wiki>
 * Dépôt de code officiel de l’app : <https://github.com/42wim/matterbridge>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_matterbridge>
+* YunoHost Store: <https://apps.yunohost.org/app/matterbridge>
 * Signaler un bug : <https://github.com/YunoHost-Apps/matterbridge_ynh/issues>
 
 ## Informations pour les développeurs
