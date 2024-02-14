@@ -24,7 +24,6 @@ Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, 
 **Version incluse :** 1.26.0~ynh1
 ## Documentations et ressources
 
-* Site officiel de l’app : <https://github.com/42wim/matterbridge>
 * Documentation officielle de l’admin : <https://github.com/42wim/matterbridge/wiki>
 * Dépôt de code officiel de l’app : <https://github.com/42wim/matterbridge>
 * YunoHost Store: <https://apps.yunohost.org/app/matterbridge>
