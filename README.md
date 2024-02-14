@@ -21,7 +21,7 @@ A simple chat bridge between a growing number of protocols:
 Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, Telegram, Twitch, WhatsApp, XMPP, Zulip, And more... 
 
 
-**Shipped version:** 1.26.0~ynh1
+**Shipped version:** 1.26.0~ynh2
 ## Documentation and resources
 
 * Official admin documentation: <https://github.com/42wim/matterbridge/wiki>

@@ -21,7 +21,7 @@ Un connecteur de messagerie simple entre un nombre croissant de protocoles :
 Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, Telegram, Twitch, WhatsApp, XMPP, Zulip, Et plus... 
 
 
-**Version incluse :** 1.26.0~ynh1
+**Version incluse :** 1.26.0~ynh2
 ## Documentations et ressources
 
 * Documentation officielle de l’admin : <https://github.com/42wim/matterbridge/wiki>
