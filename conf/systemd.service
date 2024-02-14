@@ -6,9 +6,9 @@ After=network.target
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__/
+WorkingDirectory=__INSTALL_DIR__/
 UMask=000
-ExecStart=__FINALPATH__/matterbridge -conf __FINALPATH__/matterbridge.toml
+ExecStart=__INSTALL_DIR__/matterbridge -conf __INSTALL_DIR__/matterbridge.toml
 RestartSec=30
 Restart=always
 

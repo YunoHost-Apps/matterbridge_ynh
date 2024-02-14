@@ -1,0 +1,11 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/tests.v1.schema.json
+
+test_format = 1.0
+
+[default]
+
+    # ------------
+    # Tests to run
+    # ------------
+
+    test_upgrade_from.58cf8e614d7b4396816b4073f58af75c5c4b075f.name = "Merge pull request #5 from YunoHost-Apps/testing"
