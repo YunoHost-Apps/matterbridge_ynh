@@ -15,7 +15,6 @@ maintainers = []
 license = "Apache-2.0"
 admindoc = "https://github.com/42wim/matterbridge/wiki"
 code = "https://github.com/42wim/matterbridge"
-website = "https://github.com/42wim/matterbridge"
 
 [integration]
 yunohost = ">= 11.0.9"
