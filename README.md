@@ -16,17 +16,15 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Multi-protocols bridge for online communications
+A simple chat bridge between a growing number of protocols:
+
+Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, Telegram, Twitch, WhatsApp, XMPP, Zulip, And more... 
+
 
 **Shipped version:** 1.26.0~ynh1
-## Disclaimers / important information
-
-## Configuration
-
-How to configure this app: a plain file with SSH `/opt/yunohost/matterbridge/matterbridge.toml`. You can follow this [doc](https://github.com/42wim/matterbridge/wiki/How-to-create-your-config) on how to create your config.
-
 ## Documentation and resources
 
+* Official app website: <https://github.com/42wim/matterbridge>
 * Official admin documentation: <https://github.com/42wim/matterbridge/wiki>
 * Upstream app code repository: <https://github.com/42wim/matterbridge>
 * YunoHost Store: <https://apps.yunohost.org/app/matterbridge>

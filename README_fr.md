@@ -16,17 +16,15 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 ## Vue d’ensemble
 
-Connecteur entre une série de protocoles de discussion
+Un connecteur de messagerie simple entre un nombre croissant de protocoles :
+
+Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, Telegram, Twitch, WhatsApp, XMPP, Zulip, Et plus... 
+
 
 **Version incluse :** 1.26.0~ynh1
-## Avertissements / informations importantes
-
-## Configuration
-
-Comment configurer cette application : un fichier brut en SSH `/opt/yunohost/matterbridge/matterbridge.toml`. Vous pouvez suivre cette [documentation](https://github.com/42wim/matterbridge/wiki/How-to-create-your-config) sur la façon de créer votre config. 
-
 ## Documentations et ressources
 
+* Site officiel de l’app : <https://github.com/42wim/matterbridge>
 * Documentation officielle de l’admin : <https://github.com/42wim/matterbridge/wiki>
 * Dépôt de code officiel de l’app : <https://github.com/42wim/matterbridge>
 * YunoHost Store: <https://apps.yunohost.org/app/matterbridge>
