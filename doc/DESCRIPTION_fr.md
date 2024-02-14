@@ -1,0 +1,3 @@
+Un connecteur de messagerie simple entre un nombre croissant de protocoles :
+
+Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, Telegram, Twitch, WhatsApp, XMPP, Zulip, Et plus... 
