@@ -9,7 +9,7 @@ description.fr = "Connecteur entre une série de protocoles de discussion"
 
 version = "1.26.0~ynh1"
 
-maintainers = ["liberodark"]
+maintainers = []
 
 [upstream]
 license = "Apache-2.0"
