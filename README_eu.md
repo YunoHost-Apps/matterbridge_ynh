@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Matterbridge YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/matterbridge.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
 
 [![Instalatu Matterbridge YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 

@@ -5,7 +5,7 @@ NON debe editarse manualmente.
 
 # Matterbridge para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/matterbridge.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
 
 [![Instalar Matterbridge con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
