@@ -17,7 +17,7 @@ admindoc = "https://github.com/42wim/matterbridge/wiki"
 code = "https://github.com/42wim/matterbridge"
 
 [integration]
-yunohost = ">= 11.0.9"
+yunohost = ">= 11.1.21"
 architectures = ["amd64", "arm64", "armhf"]
 multi_instance = false
 ldap = "not_relevant"
