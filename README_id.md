@@ -25,7 +25,7 @@ Discord, Gitter, IRC, Keybase, Matrix, Mattermost, MSTeams, Rocket.Chat, Slack, 
 ## Dokumentasi dan sumber daya
 
 - Dokumentasi admin resmi: <https://github.com/42wim/matterbridge/wiki>
-- Repositori kode aplikasi hulu: <https://github.com/42wim/matterbridge>
+- Depot kode aplikasi hulu: <https://github.com/42wim/matterbridge>
 - Gudang YunoHost: <https://apps.yunohost.org/app/matterbridge>
 - Laporkan bug: <https://github.com/YunoHost-Apps/matterbridge_ynh/issues>
 
