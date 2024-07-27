@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Matterbridge
 
-[![集成程度](https://dash.yunohost.org/integration/matterbridge.svg)](https://dash.yunohost.org/appci/app/matterbridge) ![工作状态](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/matterbridge.svg)](https://ci-apps.yunohost.org/ci/apps/matterbridge/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/matterbridge.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/matterbridge.maintain.svg)
 
 [![使用 YunoHost 安装 Matterbridge](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matterbridge)
 
