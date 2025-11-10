@@ -1,0 +1,11 @@
+version = "1.0"
+[main]
+services = ["__APP__"]
+
+    [main.config]
+        [main.config.file]
+        ask.fr = "Fichier de configuration"
+        ask.en = "Configuration file"
+        type = "file"
+        bind = "__INSTALL_DIR__/matterbridge.toml"
+
